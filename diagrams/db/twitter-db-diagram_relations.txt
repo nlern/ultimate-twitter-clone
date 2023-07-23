@@ -1,0 +1,73 @@
+table user {
+  id uuid pk
+  username string
+  email string
+  // other fields
+}
+
+table tweet {
+  id uuid pk
+  text string
+
+  authorId string
+
+  // tags
+  // comments
+  // likes
+  // bookmarks
+
+  createdAt datetime
+  updatedAt datetime
+}
+
+table hashtag {
+  id uuid pk
+  name string
+  // tweets
+}
+
+// many to many relation between tweet
+// and hashtag
+ref: tweet.id <> hashtag.id
+ref: user.id < tweet.authorId
+
+
+table reply {
+  id uuid pk
+  text string
+  userId string
+  tweetId string
+  replyId string
+}
+
+ref: reply.userId > user.id
+ref: reply.tweetId > tweet.id
+ref: reply.id <> reply.replyId
+
+table like {
+  id uuid pk
+  userId string
+  tweetId string
+  createdAt datetime
+
+  indexes {
+    (userId, tweetId) [unique]
+  }
+}
+
+ref: like.userId > user.id
+ref: like.tweetId > tweet.id
+
+table bookmark {
+  id uuid pk
+  userId string
+  tweetId string
+  createdAt datetime
+
+  indexes {
+    (userId, tweetId) [unique]
+  }
+}
+
+ref: bookmark.userId > user.id
+ref: bookmark.tweetId > tweet.id
