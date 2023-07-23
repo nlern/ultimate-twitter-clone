@@ -40,7 +40,7 @@ export default function LeftSidebar() {
                 {NAVIGATION_ITEMS.map((item) => {
                     return (
                         <Link
-                            className={`items-center flex justify-start w-fit space-x-4 rounded-3xl px-6 py-2 hover:bg-white/10 transition duration-200 ${item.title === 'Twitter' && 'rounded-full text-3xl'}`}
+                            className={`items-center flex justify-start w-fit space-x-4 rounded-3xl px-6 py-2 hover:bg-black/10 transition duration-200 ${item.title === 'Twitter' && 'rounded-full text-3xl'}`}
                             href={item.title.toLowerCase()}
                             key={item.title}
                         >
