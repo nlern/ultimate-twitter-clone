@@ -5,7 +5,7 @@ export default function RightSidebar() {
     return (
         <section className="w-[350px] sticky top-0 overflow-y-auto h-screen px-4">
             {/* search box */}
-            <div className="sticky top-0 py-3">
+            <div className="sticky top-0 py-3 backdrop-blur">
                 <form className="relative w-full h-full">
                     <input type="text" name="search" id="search" placeholder="Search Twitter" className="peer outline-none focus:border-primary focus:border border-transparent w-full bg-neutral-100/90 rounded-full placeholder:text-neutral-600 py-2 pl-10 pr-2" />
                     <div className="peer-focus:text-primary absolute top-0 left-0 p-4 h-full flex items-center justify-center text-neutral-600">

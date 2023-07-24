@@ -4,22 +4,22 @@ import { FaRegComment, FaRetweet } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import { IoStatsChart } from "react-icons/io5";
 
+import { Button } from "@/components/ui/button";
+
 export default function Main() {
     return (
-        <main className="flex-1 h-full min-h-screen border-x-[0.5px] border-gray-300">
-            <h1 className='text-xl font-bold p-4 border-b-[0.5px] border-gray-300 backdrop-blur bg-gray-200/10 sticky top-0'>Home</h1>
-            <div className='px-2 py-4 border-b-[0.5px] border-gray-300 h-32 flex space-x-2'>
+        <main className="flex-1 h-full min-h-screen border-x-[0.5px] border-border-300">
+            <h1 className='text-xl font-bold p-4 border-b-[0.5px] border-border-300 backdrop-blur bg-gray-200/10 sticky top-0'>Home</h1>
+            <div className='px-2 py-4 border-b-[0.5px] border-border-300 h-32 flex space-x-2'>
                 <div className="rounded-full bg-slate-500 w-10 h-10" />
                 <form className='flex-1'>
                     <div className='p-2 border-b-[0.5px] border-gray-300'>
-                        <input type="text" placeholder="What is happening?!" className='w-full text-xl bg-transparent outline-none border-none placeholder:text-gray-500' />
+                        <input type="text" placeholder="What is happening?!" className='w-full text-xl bg-transparent outline-none border-none placeholder:text-primary-500' />
                     </div>
                     <div className='flex justify-between items-center'>
                         <div></div>
                         <div>
-                            <button type="submit" className="bg-primary w-full rounded-full px-4 py-2 mt-4 hover:bg-opacity-70 transition duration-200 font-semibold">
-                                Tweet
-                            </button>
+                            <Button type="submit" className="rounded-full mt-4">Tweet</Button>
                         </div>
                     </div>
                 </form>
