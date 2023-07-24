@@ -1,6 +1,6 @@
-import LeftSidebar from '@/app/components/LeftSidebar';
-import Main from '@/app/components/Main';
-import RightSidebar from './components/RightSidebar';
+import LeftSidebar from '@/components/LeftSidebar';
+import Main from '@/components/Main';
+import RightSidebar from '@/components/RightSidebar';
 
 export default function Home() {
   return (
