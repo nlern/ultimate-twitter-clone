@@ -14,5 +14,6 @@ export type Tweet = {
         username: string;
         full_name: string | null;
     } | null;
-    likes: number
+    likes: number,
+    isLikedByUser: boolean
 }

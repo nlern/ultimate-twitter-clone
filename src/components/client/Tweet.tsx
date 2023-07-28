@@ -90,15 +90,9 @@ export default function Tweet({ tweet }: TweetProps) {
                             className="rounded-full hover:bg-black/10 transition duration-200 p-3 cursor-pointer"
                             onClick={likeTweet}
                         >
-                            {
-                                tweet.likes === 0
-                                    ? <AiOutlineHeart />
-                                    : (
-                                        <div className="text-red-500 flex items-center" >
-                                            <AiTwotoneHeart /> <span className="ml-2">{tweet.likes}</span>
-                                        </div>
-                                    )
-                            }
+                            <div className={`${tweet.isLikedByUser ? 'text-red-500' : ''} flex items-center`} >
+                                {tweet.isLikedByUser ? <AiTwotoneHeart /> : <AiOutlineHeart />} {tweet.likes > 0 && <span className="ml-2">{tweet.likes}</span>}
+                            </div>
                         </div>
                         <div className="rounded-full hover:bg-black/10 transition duration-200 p-3 cursor-pointer">
                             <IoStatsChart />

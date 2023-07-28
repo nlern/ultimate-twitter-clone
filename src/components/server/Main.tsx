@@ -11,7 +11,9 @@ import Tweet from "@/components/client/Tweet";
 async function getTweets(): Promise<TweetType[]> {
     const supabase = createServerComponentClient<Database>({ cookies });
 
-    const { data, error } = await supabase
+    const tweetIdsLikedByUserSet = new Set<string>();
+
+    const { data: tweets, error: tweetsError } = await supabase
         .from('tweets')
         .select(`
             id,
@@ -24,21 +26,54 @@ async function getTweets(): Promise<TweetType[]> {
             likes(count)
         `)
         .order('created_at', { ascending: false });
-    if (error) {
-        throw new Error("Failed to fetch tweets");
+    if (tweetsError) {
+        throw new Error("Failed to fetch tweets.");
     }
-    if (data === null) {
+    if (tweets === null) {
         return [];
     }
 
-    const tweets = data.map((d) => {
+    const { data: currentUserDetails, error: currentUserDetailsError } = await supabase.auth.getUser();
+
+    if (currentUserDetailsError) {
+        throw new Error('Failed to get user details')
+    }
+
+    if (!currentUserDetails) {
+        throw new Error('User does not exists')
+    }
+
+    const { data: currentUserLikedTweets, error: currentUserLikedTweetsError } = await supabase.from('likes')
+        .select(
+            `
+            tweet_id,
+            user_id,
+            profiles (
+                id
+            )
+            `
+        )
+        .eq('profiles.id', currentUserDetails.user.id)
+
+    if (currentUserLikedTweetsError) {
+        throw new Error('Failed to get current user liked tweets.');
+    }
+
+    if (currentUserLikedTweets) {
+        currentUserLikedTweets.forEach(tweet => {
+            tweetIdsLikedByUserSet.add(tweet.tweet_id)
+        })
+    }
+
+    const mappedTweets = tweets.map((tweet) => {
         return {
-            ...d,
-            likes: (d.likes as unknown as [{ count: number }])[0].count
+            ...tweet,
+            likes: (tweet.likes as unknown as [{ count: number }])[0].count,
+            isLikedByUser: tweetIdsLikedByUserSet.has(tweet.id)
         }
     });
 
-    return tweets;
+    return mappedTweets;
 }
 
 export default async function Main() {
